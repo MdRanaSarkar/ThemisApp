@@ -1,0 +1,35 @@
+{% extends 'ClientView/HomePage.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+  
+<div class="container">
+    <h1 class="mt-5 py-5">Translate App</h1>
+    <form method="POST" action="{% url 'ShowGoogleTranslate' %}">
+       {% csrf_token %}
+       <div class="row mt-4">
+          <div class="col-md-6">
+             <textarea type="text" name="txt" class="form-control" placeholder="Enter Your Text" rows="5" required="required"></textarea>
+          </div>
+          <div class="col-md-6">
+             <select id="inputState" class="form-control" name="lang">
+                <option selected value="en">English</option>
+                <option value="ar">Arabic</option>
+                <option value="es">Spanish</option>
+                <option value="fr">Frensh</option>
+                <option value="de">German</option>
+                <option value="zh-cn">Chinese</option>
+             </select>
+          </div>
+       </div>
+       <button type="submit" class="btn btn-primary mt-2">Translate</button>
+    </form>
+    <p class="mt-4">{{result}}</p>
+ </div>
+
+    
+  {% endblock content %}
+    

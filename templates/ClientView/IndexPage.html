@@ -1,0 +1,23 @@
+{% extends 'ClientView/HomePage.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+  
+{% include 'ClientView/Hero_Section.html' %}
+<main id="main">
+    {% include 'ClientView/Featured_Services_Section.html' %}
+    {% include 'ClientView/About_Section.html' %}
+    {% include 'ClientView/Service_Section.html' %}
+    {% include 'ClientView/Call_Action_Section.html' %}
+    {% include 'ClientView/Facts_Section.html' %}
+    {% include 'ClientView/PortfolioSection.html' %}
+    {% include 'ClientView/Clients_section.html' %}
+    {% include 'ClientView/team_Section.html' %}
+    {% include 'ClientView/Contact Section.html' %}
+</main>
+    
+  {% endblock content %}
+    
