@@ -1,0 +1,41 @@
+{% extends 'ClientView/HomePage.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+
+<link href="{%static ''%}custom_design/attorneys_searching.css" rel="stylesheet">
+
+
+<div class="main-banner" id="top">
+    <video autoplay muted loop id="bg-video">
+        <source src="{%static 'video_audio/bg_img.mp4'%}" type="video/mp4" />
+    </video>
+
+    <div class="video-overlay header-text">
+        <div class="caption">
+            <h6>Attoneys support with A.I.P.I</h6>
+            <h3>Explore the richest database of  <em>legal professionals</em></h3>
+            <div class="s132">
+            <form method = "POST" action = "{%url 'searched_attorneys' %}">
+              {% csrf_token %}
+                <div class="inner-form">
+                  <div class="input-field second-wrap">
+                    <input id="search" type="text" name="searchkeywords" required placeholder="Enter Keywords" />
+                  </div>
+                  <div class="input-field third-wrap">
+                    <button class="btn-search" type="submit">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+  
+      
+ {% endblock content %}

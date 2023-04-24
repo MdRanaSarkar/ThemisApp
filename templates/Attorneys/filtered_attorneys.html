@@ -1,0 +1,303 @@
+{% extends 'ClientView/HomePage.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<link href="{%static ''%}custom_design/filtered_attorneys.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<style>
+.container{
+  margin-top: 5%;
+}
+.card_data{
+  margin-left: 10%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  font: caption;
+  font-size: larger;
+  font-weight: 900;
+  color: darkblue;
+}
+@media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }
+.name_designation{
+  display: flex !important;
+}
+.pagination{
+  margin-left: 33%;
+}
+</style>
+
+<div class="container">
+	<div class="row">
+	<aside class="col-md-3">
+		
+<div class="card">
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+				<h6 class="title">CATEGORIES</h6> 
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_1" style="">
+			<div class="card-body">
+				<ul class="list-menu">
+				<li><a href="#">Attorneys  </a></li>
+				<li><a href="#">Law Firms </a></li>
+				<li><a href="#">Articles  </a></li>
+
+				</ul>
+
+			</div> <!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group  .// -->
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
+				<h6 class="title">AREAS OF PRACTICE </h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_2" style="">
+			<div class="card-body">
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">All  
+				  	 </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">Litigation 
+				  	 </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">Personal Injury 
+				  </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">Business Law 
+				  	</div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" class="custom-control-input">
+				  <div class="custom-control-label">Real Estate
+				   </div>
+				</label>
+	</div> <!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group .// -->
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">LOCATIONS </h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_2" style="">
+			<div class="card-body">
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">All  
+				  	 </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">Litigation 
+				  	 </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">Personal Injury 
+				  </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label">Business Law 
+				  	</div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" class="custom-control-input">
+				  <div class="custom-control-label">Real Estate
+				   </div>
+				</label>
+	</div> <!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group .// -->
+  <article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+				<h6 class="title">PEER REVIEWS
+        </h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_2" style="">
+			<div class="card-body">
+				<label class="custom-control custom-radio">
+				  <input type="radio" name="review" class="custom-control-input">
+				  <div class="custom-control-label"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+				  	 </div>
+				</label>
+				<label class="custom-control custom-radio">
+				  <input type="radio" name="review" class="custom-control-input">
+				  <div class="custom-control-label"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+				  	 </div>
+				</label>
+				<label class="custom-control custom-radio">
+				  <input type="radio" name="review" class="custom-control-input">
+				  <div class="custom-control-label"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+				  </div>
+				</label>
+				<label class="custom-control custom-radio">
+				  <input type="radio" name="review" class="custom-control-input">
+				  <div class="custom-control-label"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+				  	</div>
+				</label>
+				<label class="custom-control custom-radio">
+				  <input type="radio" name="review" class="custom-control-input">
+				  <div class="custom-control-label"><i class="bi bi-star-fill"></i>
+				   </div>
+				</label>
+	</div> <!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group .// -->
+  
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">Client Review </h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_4" style="">
+			<div class="card-body">
+			  <label class="radio-btn">
+			    <input type="radio" name="review_client">
+			    <span class="btn btn-light"> 100% </span>
+			  </label>
+
+			  <label class="radio-btn">
+			    <input type="radio" name="review_client">
+			    <span class="btn btn-light"> 90% <i class="bi bi-arrow-up"></i> </span>
+			  </label>
+
+			  <label class="radio-btn">
+			    <input type="radio" name="review_client">
+			    <span class="btn btn-light"> 70% <i class="bi bi-arrow-up"></i> </span>
+			  </label>
+
+			  <label class="radio-btn">
+			    <input type="radio" name="review_client">
+			    <span class="btn btn-light"> 50% <i class="bi bi-arrow-up"></i> </span>
+			  </label>
+        <label class="radio-btn">
+			    <input type="radio" name="review_client">
+			    <span class="btn btn-light">Not Reviewed </span>
+			  </label>
+		</div><!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group .// -->
+	
+</div> <!-- card.// -->
+
+	</aside>
+	<main class="col-md-9">
+
+        <section style="background-color: #eee;">
+          <div class="card_data">
+            Search for <b> {{SearchAbout}}</b>  
+
+   
+              
+          </div>
+            
+            {% for attorney in attorneys %}
+              <div class="row justify-content-center mb-1">
+                <div class="col-md-12 col-xl-10">
+                  <div class="card shadow-0 border rounded-3">
+                    <div class="card-body">
+                    
+                      <div class="row">
+                        <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                          <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                            <img src="/static/appimgs/john-smith.png"
+                              class="w-100" />
+                            <a href="#!">
+                              <div class="hover-overlay">
+                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6">
+                          <div class="name_designation"><h5>      <a href="{%url 'attorneysprofile' attorney.id %}"> {{attorney.name}}</a> </h5> &nbsp; &nbsp;<i class="bi bi-patch-check-fill"></i> <span>Open for Business</span></div>
+                          <div class="d-flex flex-row">
+                            <div class="text-danger mb-1 me-2">
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+
+                            </div>
+                            <span>310</span>
+                          </div>
+                          <div class="mt-1 mb-0 text-muted small">
+                            <span>100% cotton</span>
+                            <span class="text-primary"> • </span>
+                            <span>Light weight</span>
+                            <span class="text-primary"> • </span>
+                            <span>Best finish<br /></span>
+                          </div>
+                          <div class="mb-2 text-muted small">
+                            <span>Unique design</span>
+                            <span class="text-primary"> • </span>
+                            <span>For men</span>
+                            <span class="text-primary"> • </span>
+                            <span>Casual<br /></span>
+                          </div>
+                          <div class="detail_location"><i class="bi bi-geo-alt-fill"></i> {{attorney.location}}</div>
+                          <p class="text-truncate mb-4 mb-md-0">
+                            There are many variations of passages of Lorem Ipsum available, but the
+                            majority have suffered alteration in some form, by injected humour, or
+                            randomised words which don't look even slightly believable.
+                          </p>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                    
+                          <div class="d-flex flex-column mt-2">
+                            <button class="btn btn-outline-secondary btn-sm mt-1" type="button">
+                              <i class="bi bi-envelope-fill"></i> &nbsp;</i> Contact
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm mt-1" type="button">
+                              <i class="bi bi-telephone-fill"></i> {{attorney.primary_number}}
+                            </button>
+                            <button class="btn btn-primary btn-sm  mt-1" type="button">Details</button>
+                     
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+           
+    
+          </section>
+<nav class="mt-4" aria-label="Page navigation sample">
+  <ul class="pagination">
+    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+	</main>
+	</div>
+</div>
+      
+ {% endblock content %}

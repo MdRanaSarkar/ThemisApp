@@ -1,0 +1,181 @@
+{% extends 'ClientView/HomePage.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+
+
+<style>
+  .card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+    }
+    .card-registration .select-arrow {
+    top: 13px;
+    }
+</style>
+  
+<div class="CustomUser">
+
+  <section class="h-100" style="background-color: #0B2D9B;">
+    <div class="container py-5 h-100">
+
+      <div class="row d-flex justify-content-center align-items-center h-100">
+      
+        <div class="col">
+        
+          <div class="card card-registration my-4">
+            <div class="row g-0">
+              <div class="col-xl-4 d-none d-xl-block">
+                <img src="{%static 'appimgs/signup2.png' %}"
+                  alt="Sample photo" class="img-fluid"
+                  style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+              </div>
+           
+              <div class="col-xl-8">
+                <div class="card-body p-md-5 text-black">
+                  <h3 class="mb-3 text-uppercase">New User's SignUp Form</h3>
+                  {% for message in messages %}
+                  <div class="container-fluid p-0">
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="True">&times;</span>
+                      </button>
+                      {{ message }}
+                    </div>
+                  </div>
+                  {% endfor %}
+                <form method = "POST" action="{%url 'registerfunc'%}">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <div class="form-outline"> 
+                        <label class="form-label" for="form3Example1m">First Name</label>
+                        <input type="text" id="form3Example1m" name='firstname' placeholder="Enter First Name" class="form-control form-control-lg" />
+                       
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example1n">Last Name</label>
+                        <input type="text" id="form3Example1n" name="lastname" placeholder="Enter Last Name" class="form-control form-control-lg" />
+                        
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example8">Gmail</label>
+                        <input type="text" id="form3Example8" name="email" placeholder="Enter Your Gmail"class="form-control form-control-lg" />
+                    
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3phn">Phone Number</label>
+                        <input type="text" id="form3phn" name="phonenumber" placeholder="Enter Your Phone Number"class="form-control form-control-lg" />
+                    
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <div class="form-outline"> 
+                        <label class="form-label" for="form3Password">Password</label>
+                        <input type="password" name="password1" id="form3Password" placeholder="Enter Password" class="form-control form-control-lg" />
+                       
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example1n">Re-Enter Password</label>
+                        <input type="password" name="password2" id="form3Example1n" placeholder="Re-Enter Your Password" class="form-control form-control-lg" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label select-label" for="form3Select">Choose Right One</label>
+                        <select class="select form-control" name="userdesignation" id="form3Select">
+                          <option value="1">I'm Normal User</option>
+                          <option value="2">I'm Attorney</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label" for="Gender">Gender </label>
+                        <div class="AllGenderCls d-md-flex justify-content-start align-items-center mb-4 py-2" id="Gender">
+                        <div class="form-check form-check-inline mb-0 me-4">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptionsGender" id="femaleGender"
+                            value="Female" />
+                          <label class="form-check-label" for="femaleGender">Female</label>
+                        </div>
+      
+                        <div class="form-check form-check-inline mb-0 me-4">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptionsGender" id="maleGender"
+                            value="Male" />
+                          <label class="form-check-label" for="maleGender">Male</label>
+                        </div>
+      
+                        <div class="form-check form-check-inline mb-0">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptionsGender" id="otherGender"
+                            value="Other" />
+                          <label class="form-check-label" for="otherGender">Other</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                  <button type="submit" class="btn btn-primary btn-block mb-4">
+                    Sign up
+                  </button>
+                  </div>
+                </form>
+                  <div class="row">
+                  <!-- Register buttons -->
+                  <div class="text-center">
+                    <p>or sign up with:</p>
+                    <button type="button" class="btn btn-link btn-floating">
+                      <i class="fa-brands fa-facebook">Facebook</i>
+                    </button>
+    
+                    <button type="button" class="btn btn-link btn-floating">
+                      <i class="fab fa-google">Google</i>
+                    </button>
+    
+                    <button type="button" class="btn btn-link btn-floating">
+                      <i class="fab fa-twitter">Twitter</i>
+                    </button>
+    
+                    <button type="button" class="btn btn-link btn-floating">
+                      <i class="fab fa-github">Github</i>
+                    </button>
+                    <button type="button" class="btn btn-link btn-floating">
+                      <i class="fab fa-github">Linkedin</i>
+                    </button>
+                  </div>
+
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+  
+      
+  {% endblock content %}

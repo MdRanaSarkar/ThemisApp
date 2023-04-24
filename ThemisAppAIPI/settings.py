@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from os.path import join
+import os
+from django.contrib.messages import constants as messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIRR = Path(BASE_DIR, "templates")
@@ -41,10 +43,14 @@ INSTALLED_APPS = [
     
     # Created Apps
     "AIPI_App",
+    'AppUser',
+    'AttorneysApp',
+    
 
     #Installed apps
-
-#    'google_translate',
+    'ckeditor', # CKEditor config
+    'ckeditor_uploader', # CKEditor media uploader
+    # 'google_translate',
      
     
 ]
@@ -137,9 +143,21 @@ MEDIA_URL = '/media/'
 MEDIA_DIR = join(BASE_DIR, 'media')
 
 MEDIA_ROOT = MEDIA_DIR
+#ckeditor upload path
+CKEDITOR_UPLOAD_PATH="uploads/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = 'AppUser.User'
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+ }
 
