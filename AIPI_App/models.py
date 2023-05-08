@@ -10,3 +10,10 @@ class Video(models.Model):
 
     def __str__(self):
         return self.name + ": " + str(self.videofile)
+
+class SpeechAudioFile(models.Model):
+    name= models.CharField(max_length=500)
+    audiofile= models.FileField(upload_to='audio/', null=True, verbose_name="")
+
+    def __str__(self):
+        return self.name

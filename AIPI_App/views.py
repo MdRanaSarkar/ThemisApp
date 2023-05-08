@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Video
+from .models import Video, SpeechAudioFile
 from .forms import VideoForm
 import moviepy.editor as mp
 from django.http import HttpResponseRedirect, JsonResponse
@@ -8,7 +8,9 @@ from os.path import join
 # Create your views here.
 from googletrans import Translator
 import pyttsx3
-
+from django.core.files.storage import FileSystemStorage
+from django.middleware.csrf import get_token
+from .speech2text import Speechaudio2Text
 
 def HomeView(request):
     context = {}
@@ -79,7 +81,6 @@ def TextToSpeech(request):
         userbtn = ""
         inputtext = request.POST.get("inputtextdata", None)
         speechgender = request.POST.get("Gender", None)
-
         actionwisedata = request.POST.get("actiondata", None)
         print(actionwisedata)
         # pyttsx3 start 
@@ -99,12 +100,37 @@ def TextToSpeech(request):
             engine.stop()
         elif actionwisedata == "ListenNow":
             engine.say(inputtext)
-
             engine.runAndWait()
-            
-            
         return render(request, 'AIBasedTemplates/TextToSpeechSection.html', context)
     return render(request, 'AIBasedTemplates/TextToSpeechSection.html', context)
+
+
+
+def ImageToText(request):
+    
+    if request.method == 'POST':
+        csrf_token = get_token(request)
+        files = request.C
+        print(csrf_token, files)
+        img_lst = request.FILES['images']
+        context = { "csrf_token": csrf_token,}
+        print(img_lst)
+    else:
+        print("Nothing")
+        context = {}
+    return render(request, 'AIBasedTemplates/ImgToTextSection.html', context)
+
+def SpeechToText(request):
+    context = {}
+    if request.method == 'POST':
+        speechaudio = request.FILES['speech2textfiles']
+        speechaudiofile = SpeechAudioFile.objects.create(
+            name = speechaudio.name, audiofile = speechaudio)
+        audio_path= speechaudiofile.audiofile.path
+        generated_text = Speechaudio2Text(audio_path)
+        context = { "speechaudio": generated_text}
+        return render(request, 'AIBasedTemplates/SpeechToTextSection.html', context)
+    return render(request, 'AIBasedTemplates/SpeechToTextSection.html', context)
 
 
 

@@ -1,0 +1,105 @@
+{% extends 'UserDashbord/index.html' %}
+
+{% load static %}
+
+
+{% block PageTitle %}
+<div class="pagetitle">
+    <h1>AIPI Dashbord</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{%url 'home'%}">AIPI</a></li>
+        <li class="breadcrumb-item active">Speech2Text</li>
+      </ol>
+    </nav>
+  </div>
+{% endblock PageTitle %}
+
+
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+
+
+<div class="container">
+  <div class="m-4">
+  <div class="row btn_navbar">
+      <div class="col-md-4 r-5">
+        <div class="d-flex">
+        <div class="m-3 mt-5">
+          <i class="far fa-copy"></i>
+        </div>
+        <div class="m-3 mt-5">
+          <i class="fas fa-undo-alt"></i>
+        </div>
+        <div class="m-3"> 
+          <i class="fas fa-microphone-alt fa-3x" id="clicktoconvert"></i>
+        </div>
+        <div class="m-3 mt-5">
+          <i class="fas fa-redo-alt"></i>
+        </div>
+        </div>
+      </div>
+      <div class="col-md-8 mt-4">
+        <form action="{%url 'speechtotext'%}" method="POST" class="text-center" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="file" name="speech2textfiles" id="speech2text">
+          <button type="submit" class="btn btn-info" name="actiondata" value="speech2text" ><i class=""></i>Speech2Text</button>
+        </form>
+      </div>
+  </div>
+</div>
+<form action="{%url 'texttospeech'%}" method="POST" class="text-center">
+    {% csrf_token %}
+    <div class="row">
+<div class="mb-3" >
+  {% if speechaudio %}
+    <textarea class="form-control" id="exampleFormControlTextarea" name="inputtextdata" rows="3">
+      {{speechaudio}}
+    </textarea>
+  
+    {% else %}
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="inputtextdata" rows="3">
+      
+    </textarea>
+    {% endif %}
+  </div>
+</div>
+
+</form>
+
+</div>
+
+<style>
+  .btn_navbar{
+  background-color: #F0FFFF;
+  
+
+  }
+  #clicktoconvert{
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  clicktoconvert.addEventListener("click", function(){
+  var speech = true;
+  window.SpeechRecognition = window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+
+  recognition.addEventListener("result", e=>{
+    const transcript = Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    document.getElementById("exampleFormControlTextarea1").innerHTML = transcript;
+  })
+
+  if(speech){
+    recognition.start();
+  }
+ })
+
+</script>
+
+ {% endblock content %}

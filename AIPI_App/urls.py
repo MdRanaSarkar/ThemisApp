@@ -2,7 +2,8 @@ from django.urls import path
 from AIPI_App.views import (HomeView, DashIndex,
                             Showvideo, AudioCreate,
                             GoogleTranslator,
-                            TextToSpeech
+                            TextToSpeech,ImageToText, 
+                            SpeechToText, 
                             )
 
 urlpatterns = [
@@ -12,6 +13,8 @@ urlpatterns = [
     path('video_to_audio_convert', AudioCreate, name = 'audio_create'),
     path('google_translate/', GoogleTranslator, name = 'ShowGoogleTranslate'),
     path('text2speech/', TextToSpeech, name = 'texttospeech'),
+    path('img2text/', ImageToText, name = 'imagetotext'),
+    path('speech2text/', SpeechToText, name = 'speechtotext'),
   
     
 ]

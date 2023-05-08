@@ -1,0 +1,39 @@
+{% extends 'UserDashbord/index.html' %}
+
+{% load static %}
+
+
+{% block PageTitle %}
+<div class="pagetitle">
+    <h1>AIPI Dashbord</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{%url 'home'%}">AIPI</a></li>
+        <li class="breadcrumb-item active">Text2Speech</li>
+      </ol>
+    </nav>
+  </div>
+{% endblock PageTitle %}
+
+
+{% block content %}
+<form action="{%url 'texttospeech'%}" method="POST" class="text-center">
+    {% csrf_token %}
+    <div class="row">
+<div class="mb-3" >
+    <label for="exampleFormControlTextarea1" class="form-label fw-bold fs-1">Write Text</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="inputtextdata" rows="3"></textarea>
+  </div>
+  <div class="mb-3">
+  <select class="form-select" name="Gender" aria-label="Default select example">
+    <option  value="0">Male</option>
+    <option  value="1">FeMale</option>
+  </select>
+</div>
+<div class="row container d-flex align-items-center justify-content-center">
+<button type="submit" class="mb-3 col-md-5 btn btn-primary m-3" name="actiondata" value="ListenNow" > <i class="bi bi-ear-fill"></i> Listen Now</button>
+<button type="submit" class="mb-3 col-md-5 btn btn-info m-3" name="actiondata" value="DownLoadNow" ><i class="bi bi-save-fill"></i> Save The Audio Speech</button>
+</div>
+</form>
+
+ {% endblock content %}
