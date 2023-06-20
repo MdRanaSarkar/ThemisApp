@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Video, SpeechAudioFile
+from .models import Video, SpeechAudioFile, NudityImage, WeaponsImage, WeaponsVideo
 from .forms import VideoForm
 import moviepy.editor as mp
 from django.http import HttpResponseRedirect, JsonResponse
@@ -8,9 +8,17 @@ from os.path import join
 # Create your views here.
 from googletrans import Translator
 import pyttsx3
-from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import FileSystemStorage 
 from django.middleware.csrf import get_token
 from .speech2text import Speechaudio2Text
+from .imgnudity  import nuditydetectionresult
+import requests
+import os
+import json
+from .weaponsdetectai import WeaponsDetectedImgStore, WeaponsDetectionFromImageAI, WeaponsDetectedVideoFunc
+import cv2
+from django.urls import  reverse
+from .SCvideoStream import stream, weaponsStream
 
 def HomeView(request):
     context = {}
@@ -104,14 +112,10 @@ def TextToSpeech(request):
         return render(request, 'AIBasedTemplates/TextToSpeechSection.html', context)
     return render(request, 'AIBasedTemplates/TextToSpeechSection.html', context)
 
-
-
 def ImageToText(request):
     
     if request.method == 'POST':
         csrf_token = get_token(request)
-        files = request.C
-        print(csrf_token, files)
         img_lst = request.FILES['images']
         context = { "csrf_token": csrf_token,}
         print(img_lst)
@@ -132,5 +136,115 @@ def SpeechToText(request):
         return render(request, 'AIBasedTemplates/SpeechToTextSection.html', context)
     return render(request, 'AIBasedTemplates/SpeechToTextSection.html', context)
 
+def NudityCheckerImg(request):
+    if request.method == 'POST' and 'nudityimginput' in request.FILES:
+        imgfile = request.FILES['nudityimginput']
+        ndi = NudityImage(name = imgfile.name, image = imgfile )
+        ndi.save()
+        # fss = FileSystemStorage()
+        # file = fss.save(imgfile.name, imgfile)
+        # file_url = fss.url(file)
+        ndishow = NudityImage.objects.last()
+        img_url = ndishow.image.url
+        params = {
+        'models': 'nudity-2.0',
+        'api_user': '708482299',
+        'api_secret': 'WWGyXX67SuGr2qE8JMmm'
+        }
+        files = {'media': open(os.path.dirname(os.path.realpath(__file__)) +  img_url, 'rb')}
+        # files = open(file_url)
+        r = requests.post('https://api.sightengine.com/1.0/check.json', files=files, data=params)
+
+        output = json.loads(r.text)
+        # imgdetails = nuditydetectionresult(file_url)
+        context = {'file_url': files,
+                   'nudityimgdetails' : output, 
+                   }
+        print(context)
+        return render(request, 'AIBasedTemplates/NudityCheckerFromImg.html', {})
+        print(imgfile)
+    context = {}
+    return render(request, 'AIBasedTemplates/NudityCheckerFromImg.html', context)
 
 
+
+
+def WeaponsDetections(request):
+    context = {}
+    if request.method == "GET":
+        return render(request, 'AIBasedTemplates/WeaponsDetection.html', context)
+    if request.method == 'POST':
+        files = request.FILES.getlist('files[]', None)
+        print(files)
+        imageName = []
+        for f in files:
+            # fs = FileSystemStorage()
+            # file = fs.save(f.name, f)
+            # fileurl = fs.url(file)
+            # print("Fileurl", fileurl)
+            weapons = WeaponsImage(name = f.name, image = f)
+            weapons.save()
+            weapons_db = WeaponsImage.objects.last()
+            weapon_img_url =  weapons_db.img_url()
+            # print("BASE_DIR", BASE_DIR)
+            # print("image url", weapon_img_url)
+            WeaponsDetectedImgStore(weapon_img_url, f.name)
+            imageName.append(f.name)
+            # print(f.name)
+            # handle_uploaded_file(f)
+        return JsonResponse({'msg':'<div class="alert alert-success" role="alert">File successfully uploaded</div>', 'detectedImgName':imageName})
+    else:
+        return render(request, 'AIBasedTemplates/WeaponsDetection.html', context )
+
+def handle_uploaded_file(f):  
+    with open('/static/upload/'+f.name, 'wb+') as destination:  
+        for chunk in f.chunks():  
+            destination.write(chunk) 
+
+
+def WeaponsDetectionsFromVideo(request):
+    context = {}
+    if request.method == "GET":
+        return render(request, 'AIBasedTemplates/WeaponsDetectionFromVideo.html', context)
+    if request.method == 'POST':
+        vf = request.FILES
+        print(vf)
+        videofile = request.FILES.get('files')
+        print(videofile)
+        weaponsvideo = WeaponsVideo(name = videofile.name, video = videofile)
+        weaponsvideo.save()
+        weapons_db = WeaponsVideo.objects.last()
+        weapon_img_url =  weapons_db.img_url()
+        # print("BASE_DIR", BASE_DIR)
+        # print("image url", weapon_img_url)
+        WeaponsDetectedVideoFunc(weapon_img_url)
+        return JsonResponse({'msg':'<div class="alert alert-success" role="alert">File successfully uploaded</div>', 'detectedVideoName':videofile.name})
+    else:
+        return render(request, 'AIBasedTemplates/WeaponsDetectionFromVideo.html', context )
+
+
+
+def WeaponsDetectionsLive(request):
+    context = {}
+    if request.method == "GET":
+        return render(request, 'AIBasedTemplates/WeaponsDetectionLive.html', context)
+    if request.method == 'POST':
+        vf = request.FILES
+        print(vf)
+        videofile = request.FILES.get('files')
+        print(videofile)
+        weaponsvideo = WeaponsVideo(name = videofile.name, video = videofile)
+        weaponsvideo.save()
+        weapons_db = WeaponsVideo.objects.last()
+        weapon_img_url =  weapons_db.img_url()
+        # print("BASE_DIR", BASE_DIR)
+        # print("image url", weapon_img_url)
+        WeaponsDetectedVideoFunc(weapon_img_url)
+        return JsonResponse({'msg':'<div class="alert alert-success" role="alert">File successfully uploaded</div>', 'detectedVideoName':videofile.name})
+    else:
+        return render(request, 'AIBasedTemplates/WeaponsDetectionLive.html', context )
+
+def WeaponsDetectWithLiveCamera(request):
+    # videocap = cv2.VideoCapture(0)
+    weaponsStream()
+    return HttpResponseRedirect(reverse('weaponsdetectionlive'))

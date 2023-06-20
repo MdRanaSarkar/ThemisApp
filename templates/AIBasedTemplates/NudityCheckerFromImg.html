@@ -1,0 +1,71 @@
+{% extends 'UserDashbord/index.html' %}
+
+{% load static %}
+
+
+
+{% block PageTitle %}
+<div class="pagetitle">
+    <h1>AIPI Dashbord</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{%url 'home'%}">AIPI</a></li>
+        <li class="breadcrumb-item active">Img2Text</li>
+      </ol>
+    </nav>
+  </div>
+{% endblock PageTitle %}
+
+
+{% block content %}
+<script>
+    
+    function showMyImage(fileInput) {
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {           
+            var file = files[i];
+            var imageType = /image.*/;     
+            if (!file.type.match(imageType)) {
+                continue;
+            }           
+            var img=document.getElementById("thumbnil");            
+            img.file = file;    
+            var reader = new FileReader();
+            reader.onload = (function(aImg) { 
+                return function(e) { 
+                    aImg.src = e.target.result; 
+                }; 
+            })(img);
+            reader.readAsDataURL(file);
+        }    
+    }
+</script>
+
+    <div class="container">
+        <form action="" action="{%url 'nuditycheckfromimg'%}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+        <div class="row">
+                <div class="col-5">
+                    <input type="file" name="nudityimginput" accept="image/*" onchange="showMyImage(this)" />
+                    <br/> 
+                    
+                    {% if file_url %}
+                    <img id="thumbnil" name="nudityimageshow" style="width:100%; margin-top:10px;"  src={{file_url}} alt="image"/>
+                    {% else %}
+                    <img id="thumbnil" name="nudityimageshow" style="width:100%; margin-top:10px;"  src="" alt="image"/>
+                    {% endif %}
+                </div>
+                <div class="col-2">
+                <button type="submit" value="Check Nudity" class="btn btn-success"> Check Nudity </button>
+                </div>
+      
+            <div class="col-4">
+                <textarea style="width:100%; height:100%; margin-top:10px;">
+                </textarea>
+            </div>
+        </div>
+    </form>
+    </div>
+<!--Package Starting codes-->
+
+ {% endblock content %}

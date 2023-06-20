@@ -1,0 +1,61 @@
+{% extends 'UserDashbord/index.html' %}
+
+{% load static %}
+
+
+
+{% block PageTitle %}
+<div class="pagetitle">
+    <h1>AIPI Dashbord</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{%url 'home'%}">AIPI</a></li>
+        <li class="breadcrumb-item active">liveweaponsdetect</li>
+      </ol>
+    </nav>
+  </div>
+{% endblock PageTitle %}
+
+
+{% block content %}
+
+<!--Package Starting codes-->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+
+<!--Package Ending codes-->
+
+<div class="container">
+    <div class="row">
+        <div class="alarmingcondition" id="messageinfoid"></div>
+        <div class="col-xs-5 col-sm-5 col-lg-5">
+            <h1> <a href="{%url 'livecamera'%}"> Live Detect Weapons </a> </h1>
+        </div>
+
+        <div class="col-xs-2 col-sm-2 col-lg-2">
+            <input type="button" id="weaponsdetectbtnVideo"  class="btn btn-primary" value="Weapons Detect Result">
+        </div>
+
+        <div class="col-xs-5 col-sm-5 col-lg-5">
+            <div class="detectedVideoLive" id="detectedVideoIDLive">
+                <div style="display: none;" class='detected-video-prev' class="pull-right">
+                    <video height="300" width="400" class="detected-video-preview" controls="controls"/>
+                </div>
+            </div>
+            <img id="defaultImg" src="{%static 'weapons/0THZAYX5U0LO_jpg.rf.9fa413cc7f7bd3e1d496be9e1bb99bd0.jpg' %}" class="img-fluid" alt="...">
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+
+</script>
+ {% endblock content %}
