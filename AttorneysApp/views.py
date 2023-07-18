@@ -29,3 +29,8 @@ def AttorneysProfileShown(request, id):
     context = {"attorneysDetails" : attorneydetails}
     print(context)
     return render(request, 'Attorneys/attorneys_profile.html', context)
+
+
+def WeaponsDetectWithEmbededVideos(request):
+    context = {  }
+    return render(request, 'Attorneys/weapons_detect_with_embeded_.html', context) 

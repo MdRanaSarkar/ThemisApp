@@ -5,7 +5,8 @@ from AIPI_App.views import (HomeView, DashIndex,
                             TextToSpeech,ImageToText, 
                             SpeechToText,NudityCheckerImg,
                             WeaponsDetections, WeaponsDetectionsFromVideo,
-                            WeaponsDetectionsLive, WeaponsDetectWithLiveCamera
+                            WeaponsDetectionsLive, WeaponsDetectWtihLiveCamera,
+                            WeaponsDetectWithEmbededVideos, ConcealledWeaponsDetect
                             )
 
 urlpatterns = [
@@ -20,7 +21,9 @@ urlpatterns = [
     path('nuditycheckimg/',NudityCheckerImg, name = 'nuditycheckfromimg'),
     path('weapons_detection_img/',WeaponsDetections, name = 'weaponsdetectionimg'),
     path('weapons_detection_video/',WeaponsDetectionsFromVideo, name = 'weaponsdetectionvideo'),
-     path('weapons_detection_live/',WeaponsDetectionsLive, name = 'weaponsdetectionlive'),
-   path('livecamera/',WeaponsDetectWithLiveCamera, name = 'livecamera'),
+    path('weapons_detection_live/',WeaponsDetectionsLive, name = 'weaponsdetectionlive'),
+    path('weapons_detection_embeded/',WeaponsDetectWithEmbededVideos, name = 'weaponsdetectionembeded'),
+   path('livecamera/',WeaponsDetectWtihLiveCamera, name = 'livecamera'),
+   path('concealedweapondetector/',ConcealledWeaponsDetect, name = 'ConcealledWeaponsDetector')
 ]
     

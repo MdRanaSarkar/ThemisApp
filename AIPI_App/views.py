@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Video, SpeechAudioFile, NudityImage, WeaponsImage, WeaponsVideo
+from .models import Video, SpeechAudioFile, NudityImage, WeaponsImage, WeaponsVideo, EmbededItem
 from .forms import VideoForm
 import moviepy.editor as mp
 from django.http import HttpResponseRedirect, JsonResponse
@@ -19,6 +19,8 @@ from .weaponsdetectai import WeaponsDetectedImgStore, WeaponsDetectionFromImageA
 import cv2
 from django.urls import  reverse
 from .SCvideoStream import stream, weaponsStream
+import subprocess
+
 
 def HomeView(request):
     context = {}
@@ -244,7 +246,26 @@ def WeaponsDetectionsLive(request):
     else:
         return render(request, 'AIBasedTemplates/WeaponsDetectionLive.html', context )
 
-def WeaponsDetectWithLiveCamera(request):
+def WeaponsDetectWtihLiveCamera(request):
     # videocap = cv2.VideoCapture(0)
     weaponsStream()
     return HttpResponseRedirect(reverse('weaponsdetectionlive'))
+
+
+def WeaponsDetectWithEmbededVideos(request):
+    weapons_videos = EmbededItem.objects.all()    
+    context = { 'embededvideos':weapons_videos }
+    print(context)
+    return render(request, 'AIBasedTemplates/weapons_detect_with_embeded_.html', context)
+
+def detect_weapons():
+    uploaded_path = r"https://www.youtube.com/watch?v=Ewu8_yi4JNk"
+    subprocess.run(['python', 'C:\\Users\\HSSL110\\Desktop\\WebApp\\AIWebProject\\yolov5\\detect.py', '--weights',
+                                'C:\\Users\\HSSL110\\Desktop\\WebApp\\AIWebProject\\static\\weight\\best.pt', '--imgsz', '1024', '--project', 'media/detect', '--source', uploaded_path])
+    return uploaded_path
+
+
+def ConcealledWeaponsDetect(request):
+    context = { }
+    print(context)
+    return render(request, 'AIBasedTemplates/ConcealedWeaponsDetect.html', context)

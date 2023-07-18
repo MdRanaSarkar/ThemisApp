@@ -1,0 +1,56 @@
+{% extends 'UserDashbord/index.html' %}
+
+{% load static %}
+{% load embed_video_tags %}
+
+
+{% block PageTitle %}
+<div class="pagetitle">
+    <h1>AIPI Dashbord</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{%url 'home'%}">AIPI</a></li>
+        <li class="breadcrumb-item active">Img2Text</li>
+      </ol>
+    </nav>
+  </div>
+{% endblock PageTitle %}
+
+
+{% block content %}
+
+<!--Package Starting codes-->
+
+
+<!--Package Ending codes-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-lg-4">
+            <form action="" method="POST"   id="VideoURLID">
+                {% csrf_token %}
+                  <input id="weapons_video_url" name="input_link" class="input_link form-control" type="text">
+                
+            </form>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-lg-2">
+            <input type="button" id="weaponsdetectbtnFromURL"  class="btn btn-primary" value="Weapons Detect">
+        </div>
+
+        <div class="col-xs-4 col-sm-4 col-lg-4">
+        <p> Image URL:   </p> 
+        
+        {% for emdedvideo in embededvideos %}
+         
+        {{emdedvideo.video}}
+        	{% video emdedvideo.video 'tiny' %}
+        {% endfor %}
+      </div>
+
+</div>
+<script>
+
+
+
+</script>
+ {% endblock content %}

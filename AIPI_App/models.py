@@ -1,8 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 # Create your models here.
-
-
+from embed_video.fields import EmbedVideoField
 
 class Video(models.Model):
     name= models.CharField(max_length=500)
@@ -53,5 +52,10 @@ validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm',
     def img_url(self):
         if self.video:
             return self.video.url
+
+
+
+
         
-        
+class EmbededItem(models.Model):
+    video = EmbedVideoField()  # same like models.URLField()

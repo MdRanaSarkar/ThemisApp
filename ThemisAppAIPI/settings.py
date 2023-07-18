@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'ckeditor', # CKEditor config
     'ckeditor_uploader', # CKEditor media uploader
     # 'google_translate',
-     
+
+      'embed_video',
     
 ]
 
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    
 ]
 
 ROOT_URLCONF = "ThemisAppAIPI.urls"
@@ -79,6 +81,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                
             ],
         },
     },
@@ -96,6 +99,10 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.template.context_processors.request',
+)
 
 # DATABASES = {
 #     'default': {
