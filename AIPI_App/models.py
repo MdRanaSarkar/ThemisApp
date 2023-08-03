@@ -53,9 +53,5 @@ validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm',
         if self.video:
             return self.video.url
 
-
-
-
-        
 class EmbededItem(models.Model):
     video = EmbedVideoField()  # same like models.URLField()

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from os.path import join
+import dj_database_url
 import os
 from django.contrib.messages import constants as messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,13 +24,16 @@ TEMPLATE_DIRR = Path(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-b-)nytehmjh7h#--iz8u0*_8uav6_kqwjyluba4kb-n(5%8vx#"
+# SECRET_KEY = "django-insecure-b-)nytehmjh7h#--iz8u0*_8uav6_kqwjyluba4kb-n(5%8vx#"
 
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DEBUG', "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
@@ -103,7 +107,8 @@ DATABASES = {
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.template.context_processors.request',
 )
-
+database_url = os.getenv.get("DATABASE_URL")
+DATABASES['default'] =  dj_database_url.parse(database_url)
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
