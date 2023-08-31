@@ -280,12 +280,10 @@ input[type=file].file-loading {
     text-align: center;
 
 }
-
 .krajee-default.file-preview-frame .kv-file-content {
     width: 213px;
     height: 160px;
 }
-
 .krajee-default.file-preview-frame .kv-file-content.kv-pdf-rendered {
     width: 400px;
 }

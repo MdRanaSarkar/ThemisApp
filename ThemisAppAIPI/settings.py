@@ -24,16 +24,16 @@ TEMPLATE_DIRR = Path(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-b-)nytehmjh7h#--iz8u0*_8uav6_kqwjyluba4kb-n(5%8vx#"
+SECRET_KEY = "django-insecure-b-)nytehmjh7h#--iz8u0*_8uav6_kqwjyluba4kb-n(5%8vx#"
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get('DEBUG', "False").lower() == "true"
+DEBUG = True
+# DEBUG = os.environ.get('DEBUG', "False").lower() == "true"
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader', # CKEditor media uploader
     # 'google_translate',
 
-      'embed_video',
+    'embed_video',
     
 ]
 
@@ -97,28 +97,28 @@ WSGI_APPLICATION = "ThemisAppAIPI.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#    "default": {
+#       "ENGINE": "django.db.backends.sqlite3",
+#       "NAME": BASE_DIR / "db.sqlite3",
+#   }
+# }
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.template.context_processors.request',
 )
-database_url = os.getenv.get("DATABASE_URL")
-DATABASES['default'] =  dj_database_url.parse(database_url)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'themisappdb', 
-#         'USER': 'postgres',
-#         'PASSWORD': '1234',
-#         'HOST': '127.0.0.1', 
-#         'PORT': '5432',
-#     }
-# }
+# database_url = os.getenv.get("DATABASE_URL")
+# DATABASES['default'] =  dj_database_url.parse(database_url)
+DATABASES = {
+         'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': 'themisappdb', 
+         'USER': 'postgres',
+         'PASSWORD': '1234',
+         'HOST': '127.0.0.1', 
+         'PORT': '5432',
+     }
+ }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
